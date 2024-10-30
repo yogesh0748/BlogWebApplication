@@ -15,13 +15,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from xml.etree.ElementInclude import include
+
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from .views import home, post , category  # Make sure home is correctly imported
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('blog.urls')),  # Only 'blog.urls' if blog is in the same project
-
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('home/', home),  # 'name' can help with URL reverse lookup
+    path('blog/<slug:url>',post),
+    path('category/<slug:url>',category)
+]
